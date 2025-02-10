@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{product.management.system}">Product Management System</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="container">
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage(this.value)">
+                <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+                <option value="zh" th:selected="${#locale.language == 'zh'}">中文</option>
+            </select>
+        </div>
+
+        <h1 th:text="#{product.management.system}">Product Management System</h1>
+        
+        <!-- File Upload Section -->
+        <div class="section">
+            <h2 th:text="#{file.upload}">File Upload</h2>
+            <form id="uploadForm" class="form">
+                <input type="file" id="fileInput" required>
+                <button type="submit" th:text="#{form.submit}">Upload</button>
+            </form>
+            <div id="uploadStatus"></div>
+        </div>
+
+        <!-- Product Management Section -->
+        <div class="section">
+            <h2 th:text="#{product.list}">Products</h2>
+            <form id="productForm" class="form">
+                <input type="text" id="productName" th:placeholder="#{product.name}" required>
+                <input type="text" id="description" th:placeholder="#{product.description}">
+                <input type="number" id="price" th:placeholder="#{product.price}" step="0.01" required>
+                <input type="number" id="stockQuantity" th:placeholder="#{product.stock}" required>
+                <input type="text" id="category" th:placeholder="#{product.category}" required>
+                <button type="submit" th:text="#{form.submit}">Add Product</button>
+            </form>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" th:placeholder="#{form.search}">
+                <select id="categoryFilter">
+                    <option value="" th:text="#{product.all.categories}">All Categories</option>
+                </select>
+            </div>
+
+            <table id="productTable">
+                <thead>
+                    <tr>
+                        <th th:text="#{product.name}">Name</th>
+                        <th th:text="#{product.description}">Description</th>
+                        <th th:text="#{product.price}">Price</th>
+                        <th th:text="#{product.stock}">Stock</th>
+                        <th th:text="#{product.category}">Category</th>
+                        <th th:text="#{product.actions}">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productList"></tbody>
+            </table>
+        </div>
+    </div>
+    <script th:src="@{/js/main.js}"></script>
+    <script>
+        function changeLanguage(lang) {
+            window.location.href = window.location.pathname + '?lang=' + lang;
+        }
+    </script>
+</body>
+</html>
